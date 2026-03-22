@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduard & Eloïse — China 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #C41E3A;
+            --red-dark: #9B1830;
+            --gold: #D4A84B;
+            --gold-light: #F0DBA8;
+            --cream: #FFF9F0;
+            --dark: #1A1A2E;
+            --dark-light: #2D2D44;
+            --text: #333;
+            --text-light: #666;
+            --border: #E8E0D4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 50%, var(--red-dark) 100%);
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A84B' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-lantern { font-size: 4rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); font-weight: 300; opacity: 0.85; margin-bottom: 0.5rem; }
+        .hero .dates {
+            display: inline-block; padding: 0.5rem 1.5rem; border: 1px solid var(--gold);
+            border-radius: 50px; color: var(--gold); font-weight: 500; margin-top: 1rem;
+            font-size: 1rem; letter-spacing: 0.05em;
+        }
+        .hero .scroll-hint { position: absolute; bottom: 2rem; animation: bounce 2s ease-in-out infinite; opacity: 0.6; font-size: 0.85rem; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+        .nav-container { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 1px solid var(--border); box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+        .nav-tabs { display: flex; max-width: 900px; margin: 0 auto; }
+        .nav-tab {
+            flex: 1; padding: 1rem 0.5rem; text-align: center; cursor: pointer;
+            border-bottom: 3px solid transparent; transition: all 0.3s;
+            font-weight: 500; font-size: 0.9rem; color: var(--text-light);
+        }
+        .nav-tab:hover { color: var(--red); background: rgba(196, 30, 58, 0.03); }
+        .nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+        .nav-tab .tab-number { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.2rem; opacity: 0.6; }
+        .nav-badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 50px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.3rem; }
+        .nav-badge-recommended { background: var(--red); color: white; }
+        .nav-badge-desired { background: var(--gold); color: var(--dark); }
+        .nav-badge-next { background: #2d6a4f; color: white; }
+
+        .option-section { display: none; animation: fadeIn 0.4s ease; }
+        .option-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .option-header { padding: 3rem 2rem 2rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .option-badge {
+            display: inline-block; padding: 0.3rem 1rem; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.1em; margin-bottom: 1rem;
+        }
+        .badge-classic { background: var(--red); color: white; }
+        .badge-adventure { background: var(--dark); color: var(--gold); }
+        .badge-dream { background: linear-gradient(135deg, #2d6a4f, #40916c); color: white; }
+
+        .option-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem; color: var(--dark); }
+        .option-header .tagline { font-size: 1.1rem; color: var(--text-light); font-weight: 300; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+        .why-box {
+            max-width: 750px; margin: 1.5rem auto 2rem;
+            background: white; border-radius: 12px; border-left: 4px solid var(--gold);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05); overflow: hidden;
+        }
+        .why-box h3 {
+            font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.1rem;
+            padding: 1.5rem 2rem; margin: 0; cursor: pointer; user-select: none;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .why-box h3::after { content: '▼'; font-size: 0.8rem; color: var(--text-light); transition: transform 0.3s; }
+        .why-box.open h3::after { transform: rotate(180deg); }
+        .why-box .why-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .why-box.open .why-content { max-height: 1000px; }
+        .why-box .why-content-inner { padding: 0 2rem 1.5rem; }
+        .why-box p, .why-box li { color: var(--text-light); line-height: 1.7; font-size: 0.95rem; }
+        .why-box ul { list-style: none; padding: 0; }
+        .why-box ul li { padding: 0.3rem 0; padding-left: 1.5rem; position: relative; }
+        .why-box ul li::before { content: '\2192'; position: absolute; left: 0; color: var(--gold); font-weight: 600; }
+
+        .timeline { max-width: 800px; margin: 0 auto; padding: 0 2rem 3rem; }
+        .day-card {
+            background: white; border-radius: 16px; margin-bottom: 1.5rem; overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .day-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+        .day-header { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; user-select: none; }
+        .day-number {
+            width: 48px; height: 48px; border-radius: 12px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; color: white; flex-shrink: 0;
+        }
+        .day-number span { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; opacity: 0.85; }
+
+        .bg-red { background: var(--red); }
+        .bg-dark { background: var(--dark); }
+        .bg-gold { background: var(--gold); }
+        .bg-green { background: #2d6a4f; }
+        .bg-blue { background: #1d3557; }
+        .bg-purple { background: #5a189a; }
+        .bg-orange { background: #c2660a; }
+        .bg-teal { background: #0e7c7b; }
+        .bg-rose { background: #a4133c; }
+
+        .day-info { flex: 1; }
+        .day-info h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.2rem; color: var(--dark); }
+        .day-info .day-subtitle { font-size: 0.85rem; color: var(--text-light); }
+        .day-toggle { font-size: 1.2rem; transition: transform 0.3s; color: var(--text-light); }
+        .day-card.open .day-toggle { transform: rotate(180deg); }
+        .day-content { display: none; }
+        .day-card.open .day-content { display: block; }
+        .day-body { padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--border); }
+
+        .activity { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px dashed #eee; }
+        .activity:last-child { border-bottom: none; padding-bottom: 0; }
+        .activity-time { font-size: 0.8rem; font-weight: 600; color: var(--red); min-width: 60px; padding-top: 0.15rem; }
+        .activity-detail { min-width: 0; overflow: visible; }
+        .activity-detail h4 { font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--dark); }
+        .activity-detail p { font-size: 0.85rem; color: var(--text-light); line-height: 1.5; word-wrap: break-word; }
+        .activity-tag {
+            display: inline-block; padding: 0.15rem 0.6rem; border-radius: 50px;
+            font-size: 0.7rem; font-weight: 500; margin-top: 0.4rem;
+        }
+        .tag-flight { background: #dbeafe; color: #1d4ed8; }
+        .tag-food { background: #fef3c7; color: #92400e; }
+        .tag-culture { background: #fce7f3; color: #9d174d; }
+        .tag-nature { background: #d1fae5; color: #065f46; }
+        .tag-city { background: #e0e7ff; color: #3730a3; }
+        .tag-train { background: #f3e8ff; color: #6b21a8; }
+
+        .flight-info { max-width: 750px; margin: 0 auto 2rem; padding: 0 2rem; }
+        .flight-card {
+            background: white; border-radius: 12px; padding: 1.25rem 1.5rem;
+            display: flex; align-items: center; gap: 1rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05); margin-bottom: 0.75rem;
+        }
+        .flight-icon { font-size: 1.5rem; }
+        .flight-details { flex: 1; }
+        .flight-route { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
+        .flight-meta { font-size: 0.8rem; color: var(--text-light); margin-top: 0.15rem; }
+        .flight-airline { font-size: 0.75rem; color: var(--red); font-weight: 500; }
+
+        .highlights {
+            max-width: 800px; margin: 0 auto 2rem; padding: 0 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
+        }
+        .highlight-card { background: white; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+        .highlight-card .highlight-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+        .highlight-card .highlight-body { padding: 1rem 1.2rem 1.2rem; }
+        .highlight-card .icon { font-size: 2rem; margin-bottom: 0.5rem; display: none; }
+        .highlight-card h4 { font-family: 'Playfair Display', serif; margin-bottom: 0.3rem; color: var(--dark); }
+        .highlight-card p { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+
+        .activity-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem; display: block; }
+        .activity-gallery {
+            display: flex; gap: 0.5rem; overflow-x: auto; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; margin-bottom: 0.5rem; border-radius: 8px;
+            scrollbar-width: none;
+        }
+        .activity-gallery::-webkit-scrollbar { display: none; }
+        .activity-gallery img {
+            flex: 0 0 92%; width: 92%; height: auto; aspect-ratio: 16/10;
+            object-fit: cover; border-radius: 8px;
+            scroll-snap-align: start; scroll-snap-stop: always;
+        }
+        @media (min-width: 601px) {
+            .activity-gallery img { flex: 0 0 75%; width: 75%; }
+        }
+
+        .vote-section { text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, var(--dark) 0%, var(--red-dark) 100%); color: white; }
+        .vote-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 0.5rem; }
+        .vote-section p { opacity: 0.8; margin-bottom: 2rem; font-weight: 300; }
+        .vote-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .vote-btn {
+            padding: 0.9rem 2rem; border-radius: 50px; border: 2px solid rgba(255,255,255,0.3);
+            background: transparent; color: white; font-family: 'Inter', sans-serif;
+            font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.3s;
+        }
+        .vote-btn:hover { background: white; color: var(--dark); border-color: white; transform: scale(1.05); }
+        .vote-btn.selected { background: var(--gold); border-color: var(--gold); color: var(--dark); transform: scale(1.05); }
+        .vote-result { margin-top: 1.5rem; font-size: 1.2rem; font-weight: 300; min-height: 2rem; }
+
+        footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--text-light); }
+
+        @media (max-width: 600px) {
+            .nav-tab { font-size: 0.78rem; padding: 0.8rem 0.3rem; }
+            .flight-card { flex-direction: column; text-align: center; }
+            .activity { flex-direction: column; gap: 0.3rem; }
+            .activity-time { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-lantern">🏮</div>
+    <h1>Eduard & Eloïse <span>in China</span></h1>
+    <p class="subtitle">Our first adventure in the Middle Kingdom</p>
+    <div class="dates">May 2 — 10, 2026</div>
+    <div class="scroll-hint">↓ Scroll to discover the options</div>
+</section>
+
+<!-- Navigation -->
+<div class="nav-container">
+    <div class="nav-tabs">
+        <div class="nav-tab active" onclick="showOption(1)">
+            <span class="tab-number">Option 1</span>
+            Beijing + Shanghai
+            <span class="nav-badge nav-badge-recommended">Recommended</span>
+        </div>
+        <div class="nav-tab" onclick="showOption(2)">
+            <span class="tab-number">Option 2</span>
+            Beijing + Chongqing
+            <span class="nav-badge nav-badge-desired">Desired</span>
+        </div>
+        <div class="nav-tab" onclick="showOption(3)">
+            <span class="tab-number">Option 3</span>
+            Chongqing + Zhangjiajie
+            <span class="nav-badge nav-badge-next">Next Time</span>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== OPTION 1 ==================== -->
+<section class="option-section active" id="option-1">
+
+    <div class="option-header">
+        <div class="option-badge badge-classic">The Classic Choice</div>
+        <h2>Beijing + Shanghai</h2>
+        <p class="tagline">Imperial China meets futuristic China — the perfect way to fall in love with the country on your first trip.</p>
+    </div>
+
+    <div class="why-box" onclick="this.classList.toggle('open')">
+        <h3>Why is this the smartest pick for a first trip?</h3>
+        <div class="why-content"><div class="why-content-inner">
+        <ul>
+            <li><strong>Direct Air France flights</strong> — Paris to Beijing outbound, Shanghai to Paris return: no layovers, no hassle. A perfect "open jaw" itinerary</li>
+            <li><strong>Maximum contrast</strong> — Beijing is millennia of history (Forbidden City, Great Wall, hutongs), Shanghai is jaw-dropping skylines and modernity. Two faces of China in one trip</li>
+            <li><strong>High-speed train</strong> — The Beijing → Shanghai bullet train (4h30 at 350 km/h) is an experience in itself and saves you a travel day</li>
+            <li><strong>Perfect tourist infrastructure</strong> — Metro, English signage, international hotels. Ideal for your first encounter with China</li>
+            <li><strong>Iconic cuisine</strong> — Peking duck in Beijing, xiaolongbao in Shanghai: China's most celebrated dishes right at your fingertips</li>
+            <li><strong>The perfect intro</strong> — If China wins you over (and it will), you'll come back for Zhangjiajie and Chongqing with the right appetite for adventure</li>
+        </ul>
+        </div></div>
+    </div>
+
+    <div class="flight-info">
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Paris CDG → Beijing PEK</div>
+                <div class="flight-meta">May 2 — Direct flight ~10h | Arrival May 3 morning (local time)</div>
+            </div>
+            <div class="flight-airline">AIR FRANCE</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">🚄</div>
+            <div class="flight-details">
+                <div class="flight-route">Beijing → Shanghai</div>
+                <div class="flight-meta">May 6 — High-speed train ~4h30 | 350 km/h</div>
+            </div>
+            <div class="flight-airline">CRH FUXING</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Shanghai PVG → Paris CDG</div>
+                <div class="flight-meta">May 10 — Direct flight ~12h | Arrival in Paris by midnight</div>
+            </div>
+            <div class="flight-airline">AIR FRANCE</div>
+        </div>
+    </div>
+
+    <div class="highlights">
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1746243044880-4b71e10be164?w=400&h=280&fit=crop" alt="Forbidden City" loading="lazy">
+            <div class="highlight-body"><h4>Forbidden City</h4>
+            <p>The largest imperial palace in the world — 980 buildings across 72 hectares</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=400&h=280&fit=crop" alt="Great Wall" loading="lazy">
+            <div class="highlight-body"><h4>Great Wall</h4>
+            <p>Mutianyu section: less crowded, surrounded by lush greenery</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1748078096034-46086f5b87da?w=400&h=280&fit=crop" alt="The Bund" loading="lazy">
+            <div class="highlight-body"><h4>The Bund</h4>
+            <p>Asia's most iconic skyline, spectacular at night</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1657939728877-df03de19f9fe?w=400&h=280&fit=crop" alt="Xiaolongbao" loading="lazy">
+            <div class="highlight-body"><h4>Xiaolongbao</h4>
+            <p>The world's best soup dumplings, in their hometown</p></div>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-red"><span>Sat</span>2</div>
+                <div class="day-info">
+                    <h3>Paris → Beijing</h3>
+                    <div class="day-subtitle">Afternoon flight — let's go!</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">~14:00</div>
+                        <div class="activity-detail">
+                            <h4>Air France flight CDG → PEK</h4>
+                            <p>Afternoon departure from Paris. Direct flight, about 10 hours. Try to get some sleep to arrive fresh!</p>
+                            <span class="activity-tag tag-flight">Flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-dark"><span>Sun</span>3</div>
+                <div class="day-info">
+                    <h3>Arrival in Beijing</h3>
+                    <div class="day-subtitle">First steps in Imperial China</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">~08:00</div>
+                        <div class="activity-detail">
+                            <h4>Landing in Beijing</h4>
+                            <p>Arrival at Daxing Airport. Transfer to hotel, check-in and refreshing shower.</p>
+                            <span class="activity-tag tag-flight">Arrival</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:00</div>
+                        <div class="activity-detail">
+                            <h4>Lunch</h4>
+                            <p>Time to try something local! Explore the neighbourhood and pick a spot that catches your eye — noodles, dumplings, or whatever looks good.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:30</div>
+                        <div class="activity-detail">
+                            <h4>Temple of Heaven</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1584872589930-e99fe5bf4408?w=600&h=400&fit=crop" alt="Temple of Heaven" loading="lazy"><img src="https://images.unsplash.com/photo-1603638672033-9d8bef363b29?w=600&h=400&fit=crop" alt="Temple of Heaven" loading="lazy"><img src="https://images.unsplash.com/photo-1634805380164-3a559815413e?w=600&h=400&fit=crop" alt="Temple of Heaven" loading="lazy"></div>
+                            <p>Stroll through the park where emperors prayed for good harvests. Stunning circular architecture, and locals doing tai chi and dancing in the park.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">18:00</div>
+                        <div class="activity-detail">
+                            <h4>Wudaoying Hutong</h4>
+                            <div class="activity-gallery"><img src="https://i.redd.it/wudaoying-hutong-beijing-v0-u1y3pc81dn4e1.jpg?width=4284&format=pjpg&auto=webp&s=b5a1e8ed3f0abe83fb51302dc7b6c067a30b3971" alt="Wudaoying Hutong" loading="lazy"><img src="https://wildgreatwall.com/wp-content/uploads/2024/03/Wudaoying-HuTong-4.jpg" alt="Wudaoying Hutong" loading="lazy"></div>
+                            <p>Evening stroll through traditional alleyways. Cute cafes, vintage shops, street food. Authentic Beijing.</p>
+                            <span class="activity-tag tag-city">Neighbourhood</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-gold"><span>Mon</span>4</div>
+                <div class="day-info">
+                    <h3>Forbidden City & Tiananmen Square</h3>
+                    <div class="day-subtitle">The heart of the Celestial Empire</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Tiananmen Square</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1597052144352-7fde2bf47608?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"><img src="https://images.unsplash.com/photo-1621970685078-fdc977ad71ca?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"><img src="https://images.unsplash.com/photo-1708224001654-3e01d33ce79b?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"></div>
+                            <p>The largest public square in the world. Arrive early to beat the crowds. Must-have photo in front of the Gate of Heavenly Peace.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Forbidden City (Imperial Palace)</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1746243044880-4b71e10be164?w=600&h=400&fit=crop" alt="Forbidden City" loading="lazy"><img src="https://images.unsplash.com/photo-1509265094654-19e56e3b01bd?w=600&h=400&fit=crop" alt="Forbidden City" loading="lazy"><img src="https://images.unsplash.com/photo-1551103124-2d0d36247d45?w=600&h=400&fit=crop" alt="Forbidden City" loading="lazy"></div>
+                            <p>You'll need at least 3 hours to explore this masterpiece. 980 buildings, imperial gardens, golden thrones. Book tickets online in advance!</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">13:00</div>
+                        <div class="activity-detail">
+                            <h4>Lunch at Nanluoguxiang</h4>
+                            <p>Nanluoguxiang is one of Beijing's most famous hutong streets — packed with street food stalls. Try jianbing (savoury crepe with egg and crispy wonton), zhajiangmian (thick noodles with soybean paste), or tanghulu (candied hawthorn fruit on a stick).</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">15:00</div>
+                        <div class="activity-detail">
+                            <h4>Jingshan Hill</h4>
+                            <p>Right behind the Forbidden City: climb to the top for the most beautiful panoramic view of Beijing over the palace's golden rooftops.</p>
+                            <span class="activity-tag tag-nature">Views</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Dinner & Kung Fu show</h4>
+                            <p>Optional but recommended: the "Legend of Kung Fu" show at Red Theatre is spectacular.</p>
+                            <span class="activity-tag tag-culture">Show</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-green"><span>Tue</span>5</div>
+                <div class="day-info">
+                    <h3>The Great Wall</h3>
+                    <div class="day-subtitle">Full day — pure emotion</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">07:00</div>
+                        <div class="activity-detail">
+                            <h4>Departure for Mutianyu</h4>
+                            <p>~1h30 from Beijing. Mutianyu section: less touristy than Badaling, surrounded by greenery, with a cable car up and a toboggan ride down!</p>
+                            <span class="activity-tag tag-nature">Excursion</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Walking the Wall</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=600&h=400&fit=crop" alt="Great Wall" loading="lazy"><img src="https://images.unsplash.com/photo-1558981012-236ee58eb5c9?w=600&h=400&fit=crop" alt="Great Wall" loading="lazy"><img src="https://images.unsplash.com/photo-1583405584623-58f4b7d1380f?w=600&h=400&fit=crop" alt="Great Wall" loading="lazy"></div>
+                            <p>Walk from watchtower to watchtower, soaking in the views. In May the weather is perfect and the mountains are lush green. An experience you'll never forget.</p>
+                            <span class="activity-tag tag-nature">Adventure</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Return & Summer Palace</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1573657860396-d7b1656adc53?w=600&h=400&fit=crop" alt="Summer Palace" loading="lazy"><img src="https://images.unsplash.com/photo-1565715426586-dc9be734cfa3?w=600&h=400&fit=crop" alt="Summer Palace" loading="lazy"><img src="https://images.unsplash.com/photo-1591275520356-63e1cdae0cea?w=600&h=400&fit=crop" alt="Summer Palace" loading="lazy"></div>
+                            <p>Back to Beijing with a stop at the Summer Palace (Yiheyuan): lake, gardens, and Empress Cixi's marble boat.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Beijing hotpot</h4>
+                            <p>Traditional hotpot dinner: Chinese fondue with thinly sliced lamb. Haidilao is a famous chain with incredible service.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-blue"><span>Wed</span>6</div>
+                <div class="day-info">
+                    <h3>Beijing → Shanghai</h3>
+                    <div class="day-subtitle">Bullet train and first glimpse of the future</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Check-out & station</h4>
+                            <p>Board the Fuxing bullet train from Beijing South Station. The 350km/h train is punctual and incredibly comfortable.</p>
+                            <span class="activity-tag tag-train">High-speed rail</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:30</div>
+                        <div class="activity-detail">
+                            <h4>Arrival in Shanghai</h4>
+                            <p>Arrive at Shanghai Hongqiao. Transfer to hotel in the French Concession area (yes, a piece of Paris in Shanghai!).</p>
+                            <span class="activity-tag tag-city">Arrival</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>French Concession</h4>
+                            <p>Stroll under plane trees, past Art Deco villas and cafes. Fuxing Road and Wukang Road are magical. You'll almost feel at home!</p>
+                            <span class="activity-tag tag-city">Neighbourhood</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">18:00</div>
+                        <div class="activity-detail">
+                            <h4>The Bund at sunset</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1748078096034-46086f5b87da?w=600&h=400&fit=crop" alt="The Bund" loading="lazy"><img src="https://images.unsplash.com/photo-1534732410958-631f08330310?w=600&h=400&fit=crop" alt="The Bund" loading="lazy"><img src="https://images.unsplash.com/photo-1617550698903-7e87fe1b1b2a?w=600&h=400&fit=crop" alt="The Bund" loading="lazy"></div>
+                            <p>Pudong skyline across the Huangpu River. Arrive before sunset and stay for the lights. Iconic.</p>
+                            <span class="activity-tag tag-city">Views</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">20:00</div>
+                        <div class="activity-detail">
+                            <h4>Dinner: Xiaolongbao at Din Tai Fung</h4>
+                            <p>Soup dumplings filled with hot broth. Careful not to burn yourself! Pair with fried noodles.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-purple"><span>Thu</span>7</div>
+                <div class="day-info">
+                    <h3>Shanghai: Tradition & Future</h3>
+                    <div class="day-subtitle">Ancient gardens and dizzying skyscrapers</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:30</div>
+                        <div class="activity-detail">
+                            <h4>Yu Garden (Yuyuan)</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1506158981101-17d5fadfa720?w=600&h=400&fit=crop" alt="Yu Garden" loading="lazy"><img src="https://images.unsplash.com/photo-1592203272819-8def9768169c?w=600&h=400&fit=crop" alt="Yu Garden" loading="lazy"><img src="https://images.unsplash.com/photo-1592203272820-147d6102fd04?w=600&h=400&fit=crop" alt="Yu Garden" loading="lazy"></div>
+                            <p>Classical Chinese garden from 1559. Rocks, zigzag bridges, pavilions. Then explore the surrounding bazaar for tea and street food.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">11:00</div>
+                        <div class="activity-detail">
+                            <h4>Pudong District</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1752662742861-fb76c71576d7?w=600&h=400&fit=crop" alt="Pudong Skyline" loading="lazy"><img src="https://images.unsplash.com/photo-1506158669146-619067262a00?w=600&h=400&fit=crop" alt="Pudong Skyline" loading="lazy"><img src="https://images.unsplash.com/photo-1577455070172-716b309d7691?w=600&h=400&fit=crop" alt="Pudong Skyline" loading="lazy"></div>
+                            <p>Go up Shanghai Tower (632m, China's tallest building) for a breathtaking view. Or the Oriental Pearl Tower for its glass floor.</p>
+                            <span class="activity-tag tag-city">Views</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">13:30</div>
+                        <div class="activity-detail">
+                            <h4>Lunch</h4>
+                            <p>Shanghainese classics to try: hongshaorou (braised pork belly), cong you ban mian (scallion oil noodles), or shengjianbao (pan-fried soup buns).</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">15:30</div>
+                        <div class="activity-detail">
+                            <h4>Jing'an Temple & Nanjing Road</h4>
+                            <p>Golden Buddhist temple surrounded by skyscrapers, then a stroll down Nanjing Road, China's most famous shopping street.</p>
+                            <span class="activity-tag tag-city">Shopping</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">20:00</div>
+                        <div class="activity-detail">
+                            <h4>Cocktails with a view</h4>
+                            <p>Drinks at Flair Rooftop Bar or Vue Bar overlooking the illuminated Bund. Romantic evening guaranteed.</p>
+                            <span class="activity-tag tag-food">Drinks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-teal"><span>Fri</span>8</div>
+                <div class="day-info">
+                    <h3>Zhujiajiao — Venice of the East</h3>
+                    <div class="day-subtitle">Day trip to a water village</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Bus to Zhujiajiao</h4>
+                            <p>Just 45 minutes from Shanghai. A 1,700-year-old water village with stone bridges and canals. Much less touristy than the more famous ones.</p>
+                            <span class="activity-tag tag-nature">Excursion</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">10:00</div>
+                        <div class="activity-detail">
+                            <h4>Boat ride & stroll</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1511702771955-42b52e1cd168?w=600&h=400&fit=crop" alt="Zhujiajiao" loading="lazy"><img src="https://images.unsplash.com/photo-1511702143192-1271865974a6?w=600&h=400&fit=crop" alt="Zhujiajiao" loading="lazy"><img src="https://images.unsplash.com/photo-1624881962941-8b419ce9ec20?w=600&h=400&fit=crop" alt="Zhujiajiao" loading="lazy"></div>
+                            <p>Boat ride through the canals, then walk across ancient bridges. Try the local zongzi (rice wrapped in bamboo leaves).</p>
+                            <span class="activity-tag tag-nature">Exploration</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Return to Shanghai</h4>
+                            <p>Free afternoon: Tianzifang for art and indie shopping, or relax in a traditional tea house.</p>
+                            <span class="activity-tag tag-city">Relax</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Last dinner in Shanghai</h4>
+                            <p>Special restaurant: Lost Heaven (Yunnan cuisine) or Ultraviolet for a one-of-a-kind dining experience.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-orange"><span>Sat</span>9</div>
+                <div class="day-info">
+                    <h3>Last day & final discoveries</h3>
+                    <div class="day-subtitle">Shopping, souvenirs, and last glimpses</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>M50 Art District or Propaganda Poster Museum</h4>
+                            <p>Art district with contemporary galleries, or the propaganda poster museum: small but fascinating.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:00</div>
+                        <div class="activity-detail">
+                            <h4>Last Chinese lunch</h4>
+                            <p>Street food or sit-down restaurant: make the most of it, you'll be on the plane soon!</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">15:00</div>
+                        <div class="activity-detail">
+                            <h4>Transfer to Pudong Airport</h4>
+                            <p>Take the Maglev (magnetic levitation train, 430 km/h!) to the airport — one last Chinese experience.</p>
+                            <span class="activity-tag tag-train">Transfer</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">~18:00</div>
+                        <div class="activity-detail">
+                            <h4>Air France flight PVG → CDG</h4>
+                            <p>Direct flight back to Paris. Arrival by midnight. China, we'll be back! 再见!</p>
+                            <span class="activity-tag tag-flight">Return flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== OPTION 2 ==================== -->
+<section class="option-section" id="option-2">
+
+    <div class="option-header">
+        <div class="option-badge badge-adventure">The Urban Adventure</div>
+        <h2>Beijing + Chongqing</h2>
+        <p class="tagline">From imperial grandeur to the most cyberpunk city in China — a journey between history and vertigo.</p>
+    </div>
+
+    <div class="why-box" onclick="this.classList.toggle('open')">
+        <h3>Why this combination?</h3>
+        <div class="why-content"><div class="why-content-inner">
+        <ul>
+            <li><strong>Best of both worlds</strong> — The essentials of Beijing (Great Wall, Forbidden City) + China's most authentic and futuristic city in Chongqing</li>
+            <li><strong>Chongqing is unique in the world</strong> — Built on mountains, with roads passing through buildings, metro trains entering apartment blocks, and legendary hotpot</li>
+            <li><strong>Less touristy, more authentic</strong> — Very few Westerners in Chongqing: you'll immerse yourselves in real Chinese life</li>
+            <li><strong>Internal flight via Air France/partners</strong> — Air France operates through SkyTeam partners (China Eastern/China Southern) on domestic routes</li>
+        </ul>
+        </div></div>
+    </div>
+
+    <div class="flight-info">
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Paris CDG → Beijing PEK</div>
+                <div class="flight-meta">May 2 — Direct flight ~10h | Arrival May 3 morning</div>
+            </div>
+            <div class="flight-airline">AIR FRANCE</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Beijing PEK → Chongqing CKG</div>
+                <div class="flight-meta">May 6 — Domestic flight ~3h</div>
+            </div>
+            <div class="flight-airline">CHINA EASTERN (SkyTeam)</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Chongqing CKG → Paris CDG</div>
+                <div class="flight-meta">May 10 — Via Beijing or Shanghai (~15-17h total) | Arrival by midnight</div>
+            </div>
+            <div class="flight-airline">AIR FRANCE / SKYTEAM</div>
+        </div>
+    </div>
+
+    <div class="highlights">
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1552203274-e3c7bd771d26?w=400&h=280&fit=crop" alt="Hongya Cave" loading="lazy">
+            <div class="highlight-body"><h4>Hongya Cave</h4>
+            <p>A cascading building lit up at night on the river cliff — real-life Spirited Away</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1611345157614-26d3bdd10c93?w=400&h=280&fit=crop" alt="Chongqing Hotpot" loading="lazy">
+            <div class="highlight-body"><h4>Chongqing Hotpot</h4>
+            <p>The spiciest and most famous in China. Red oil, Sichuan pepper: a fiery experience!</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1614308887764-24ce56e01700?w=400&h=280&fit=crop" alt="Liziba Metro Station" loading="lazy">
+            <div class="highlight-body"><h4>Metro Through a Building</h4>
+            <p>Line 2 of Chongqing's metro literally passes through a residential building</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1581252165579-9b85d5108cee?w=400&h=280&fit=crop&crop=bottom" alt="Night Skyline" loading="lazy">
+            <div class="highlight-body"><h4>Night Skyline</h4>
+            <p>Two rivers, a thousand illuminated skyscrapers: China's most cyberpunk skyline</p></div>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-red"><span>Sat</span>2</div>
+                <div class="day-info">
+                    <h3>Paris → Beijing</h3>
+                    <div class="day-subtitle">Direct Air France flight</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">~14:00</div>
+                        <div class="activity-detail">
+                            <h4>Air France flight CDG → PEK</h4>
+                            <p>Direct flight, arriving the next morning in Beijing.</p>
+                            <span class="activity-tag tag-flight">Flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-dark"><span>Sun</span>3</div>
+                <div class="day-info">
+                    <h3>Arrival in Beijing</h3>
+                    <div class="day-subtitle">Temple of Heaven & Hutongs</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Arrival and check-in</h4>
+                            <p>Transfer to hotel, shower, and kick off with Peking duck for lunch.</p>
+                            <span class="activity-tag tag-flight">Arrival</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Temple of Heaven & Hutongs</h4>
+                            <p>Afternoon between imperial architecture and traditional alleyways. Evening street food at Wangfujing or Nanluoguxiang.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-gold"><span>Mon</span>4</div>
+                <div class="day-info">
+                    <h3>Forbidden City & Tiananmen Square</h3>
+                    <div class="day-subtitle">The imperial heart</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Tiananmen + Forbidden City</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1597052144352-7fde2bf47608?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"><img src="https://images.unsplash.com/photo-1621970685078-fdc977ad71ca?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"><img src="https://images.unsplash.com/photo-1708224001654-3e01d33ce79b?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"></div>
+                            <p>Full morning in the imperial palace. Then climb Jingshan Hill for the panoramic view.</p>
+                            <span class="activity-tag tag-culture">Culture</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>798 Art District</h4>
+                            <p>Former military factory turned contemporary art district. Galleries, murals, hipster cafes.</p>
+                            <span class="activity-tag tag-culture">Art</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-green"><span>Tue</span>5</div>
+                <div class="day-info">
+                    <h3>Great Wall</h3>
+                    <div class="day-subtitle">Full day at Mutianyu</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">07:00</div>
+                        <div class="activity-detail">
+                            <h4>Great Wall of Mutianyu excursion</h4>
+                            <p>Full day dedicated to the Great Wall. Cable car up, toboggan down, walk between watchtowers.</p>
+                            <span class="activity-tag tag-nature">Adventure</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">18:00</div>
+                        <div class="activity-detail">
+                            <h4>Last hotpot in Beijing</h4>
+                            <p>Special dinner before flying to Chongqing tomorrow — where the hotpot will be MUCH spicier!</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-blue"><span>Wed</span>6</div>
+                <div class="day-info">
+                    <h3>Beijing → Chongqing</h3>
+                    <div class="day-subtitle">Welcome to the city of levels</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Flight Beijing → Chongqing</h4>
+                            <p>Domestic flight, about 3 hours. Landing at Chongqing Jiangbei.</p>
+                            <span class="activity-tag tag-flight">Domestic flight</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Jiefangbei & city centre</h4>
+                            <p>Chongqing's main square, surrounded by skyscrapers. First taste of a city built on mountains that climbs and drops in surreal ways.</p>
+                            <span class="activity-tag tag-city">Exploration</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">17:00</div>
+                        <div class="activity-detail">
+                            <h4>Liziba Station</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1614308887764-24ce56e01700?w=600&h=400&fit=crop" alt="Liziba Station" loading="lazy"><img src="https://images.unsplash.com/photo-1615592315136-598868a2bddf?w=600&h=400&fit=crop" alt="Liziba Station" loading="lazy"><img src="https://images.unsplash.com/photo-1619103828744-fa46dd6e934a?w=600&h=400&fit=crop" alt="Liziba Station" loading="lazy"></div>
+                            <p>The metro station that passes through a residential building! One of the most surreal and photographed sights in China.</p>
+                            <span class="activity-tag tag-city">Icon</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Hongya Cave at night</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1552203274-e3c7bd771d26?w=600&h=400&fit=crop" alt="Hongya Cave" loading="lazy"><img src="https://images.unsplash.com/photo-1573295918221-c650d1990fc3?w=600&h=400&fit=crop" alt="Hongya Cave" loading="lazy"><img src="https://images.unsplash.com/photo-1579683155669-d8ef5d2cb012?w=600&h=400&fit=crop" alt="Hongya Cave" loading="lazy"></div>
+                            <p>Chongqing's most iconic building: a layered structure on the Jialing River cliff, lit up like Spirited Away come to life.</p>
+                            <span class="activity-tag tag-city">Must-see</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">20:30</div>
+                        <div class="activity-detail">
+                            <h4>CHONGQING HOTPOT 🔥</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1611345157614-26d3bdd10c93?w=600&h=400&fit=crop" alt="Chongqing Hotpot" loading="lazy"><img src="https://images.unsplash.com/photo-1611345158052-94149ce57507?w=600&h=400&fit=crop" alt="Chongqing Hotpot" loading="lazy"><img src="https://images.unsplash.com/photo-1740575491875-77f58ab61040?w=600&h=400&fit=crop" alt="Chongqing Hotpot" loading="lazy"></div>
+                            <p>The real, original, legendary Chongqing hotpot. Fiery red broth, numbing Sichuan pepper, tripe, beef, vegetables. Unforgettable.</p>
+                            <span class="activity-tag tag-food">Legendary food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-purple"><span>Thu</span>7</div>
+                <div class="day-info">
+                    <h3>Chongqing: Urban Vertigo</h3>
+                    <div class="day-subtitle">Stairs, sky bridges and spicy noodles</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:30</div>
+                        <div class="activity-detail">
+                            <h4>Ciqikou Ancient Town</h4>
+                            <p>Ancient riverside village on the Jialing banks. Stone alleys, tea, crafts, and fiery street food. A Chongqing from another era.</p>
+                            <span class="activity-tag tag-culture">Historic quarter</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">11:00</div>
+                        <div class="activity-detail">
+                            <h4>Xiaoshizi & WFC Observation Deck</h4>
+                            <p>Head to the 73rd floor of the World Financial Centre for a 360° view of where the Yangtze and Jialing rivers meet. Two massive rivers converging.</p>
+                            <span class="activity-tag tag-city">Views</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">13:00</div>
+                        <div class="activity-detail">
+                            <h4>Chongqing Xiaomian (noodles)</h4>
+                            <p>Chongqing's noodles are famous across all of China: spicy, cheap, addictive. Eat like the locals at a tiny hole-in-the-wall.</p>
+                            <span class="activity-tag tag-food">Street food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">15:00</div>
+                        <div class="activity-detail">
+                            <h4>Exploring the "levels"</h4>
+                            <p>Chongqing is built on steep hills: take the public elevators, outdoor escalators, discover the skywalks between buildings.</p>
+                            <span class="activity-tag tag-city">Exploration</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">20:00</div>
+                        <div class="activity-detail">
+                            <h4>Nanbin Road at night</h4>
+                            <p>Riverside walk with Chongqing's illuminated skyline in front of you. Bars and restaurants along the bank.</p>
+                            <span class="activity-tag tag-city">Evening</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-teal"><span>Fri</span>8</div>
+                <div class="day-info">
+                    <h3>Dazu Rock Carvings</h3>
+                    <div class="day-subtitle">UNESCO — thousand-year-old cliff sculptures</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">07:30</div>
+                        <div class="activity-detail">
+                            <h4>Day trip to Dazu (~2h from Chongqing)</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1759107351161-11cc72b7c9e8?w=600&h=400&fit=crop" alt="Dazu Rock Carvings" loading="lazy"><img src="https://images.unsplash.com/photo-1559227582-6084d800ace3?w=600&h=400&fit=crop" alt="Dazu Rock Carvings" loading="lazy"><img src="https://images.unsplash.com/photo-1603290849291-5a01bc3fb9ee?w=600&h=400&fit=crop" alt="Dazu Rock Carvings" loading="lazy"></div>
+                            <p>UNESCO site with over 50,000 Buddhist, Taoist, and Confucian rock carvings from the 9th-13th century. Incredibly well preserved.</p>
+                            <span class="activity-tag tag-culture">UNESCO</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">15:00</div>
+                        <div class="activity-detail">
+                            <h4>Return and relax</h4>
+                            <p>Back in Chongqing. Free afternoon: tea house, massage, or shopping at Guanyinqiao.</p>
+                            <span class="activity-tag tag-city">Relax</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Farewell dinner: Chongqing BBQ</h4>
+                            <p>Beyond hotpot, Chongqing is famous for street barbecue (shaokao): spicy skewers over charcoal. Chongqing beer in hand!</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-orange"><span>Sat</span>9</div>
+                <div class="day-info">
+                    <h3>Last hours & return</h3>
+                    <div class="day-subtitle">Final stroll and flight to Paris</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Yangtze Cableway</h4>
+                            <p>The cable car crossing the Yangtze River. Spectacular view of the city. One last dose of vertigo!</p>
+                            <span class="activity-tag tag-city">Icon</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">11:00</div>
+                        <div class="activity-detail">
+                            <h4>Last lunch and souvenirs</h4>
+                            <p>Last xiaomian, last photos, last memories of this impossible city.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Airport transfer</h4>
+                            <p>Flight Chongqing → Beijing/Shanghai, then Air France connection to Paris. Arrival by midnight.</p>
+                            <span class="activity-tag tag-flight">Return flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== OPTION 3 ==================== -->
+<section class="option-section" id="option-3">
+
+    <div class="option-header">
+        <div class="option-badge badge-dream">The Dream Trip</div>
+        <h2>Chongqing + Zhangjiajie</h2>
+        <p class="tagline">The China you don't expect: Avatar mountains, a cyberpunk city, and a Beijing stopover so you won't have regrets.</p>
+    </div>
+
+    <div class="why-box" onclick="this.classList.toggle('open')">
+        <h3>Why consider this even for a first trip?</h3>
+        <div class="why-content"><div class="why-content-inner">
+        <ul>
+            <li><strong>The Avatar mountains are real</strong> — The sandstone pillars of Zhangjiajie inspired Pandora in the film. A landscape that takes your breath away</li>
+            <li><strong>Chongqing is your dream</strong> — And dreams shouldn't be postponed. The craziest vertical city in the world deserves to be seen</li>
+            <li><strong>Smart Beijing stopover</strong> — With a layover in Beijing (even just one night), you'll see the Forbidden City and come home with zero regrets</li>
+            <li><strong>A trip unlike any other</strong> — While everyone does Beijing+Shanghai, you'll discover deep China. A real adventure, not a tourist package</li>
+            <li><strong>Beijing+Shanghai can wait</strong> — Those cities are always there. The Avatar mountains and Chongqing are far more unique experiences</li>
+        </ul>
+        </div></div>
+    </div>
+
+    <div class="flight-info">
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Paris CDG → Beijing PEK</div>
+                <div class="flight-meta">May 2 — Direct flight ~10h | Extended layover in Beijing</div>
+            </div>
+            <div class="flight-airline">AIR FRANCE</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Beijing PEK → Chongqing CKG</div>
+                <div class="flight-meta">May 3 evening — Domestic flight ~3h</div>
+            </div>
+            <div class="flight-airline">CHINA EASTERN (SkyTeam)</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Chongqing CKG → Zhangjiajie DYG</div>
+                <div class="flight-meta">May 6 — Domestic flight ~1h15</div>
+            </div>
+            <div class="flight-airline">CHINA SOUTHERN</div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-icon">✈️</div>
+            <div class="flight-details">
+                <div class="flight-route">Zhangjiajie DYG → Beijing PEK → Paris CDG</div>
+                <div class="flight-meta">May 10 — Via Beijing, Air France connection | Arrival by midnight</div>
+            </div>
+            <div class="flight-airline">AIR FRANCE / SKYTEAM</div>
+        </div>
+    </div>
+
+    <div class="highlights">
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1561031454-4f1331bd2a34?w=400&h=280&fit=crop" alt="Avatar Mountains" loading="lazy">
+            <div class="highlight-body"><h4>Avatar Mountains</h4>
+            <p>Sandstone pillars hundreds of metres tall shrouded in clouds — Zhangjiajie National Park</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1738579945323-8c78c9a1a27f?w=400&h=280&fit=crop" alt="Glass Bridge" loading="lazy">
+            <div class="highlight-body"><h4>Glass Bridge</h4>
+            <p>The world's longest and highest glass bridge: 430m of transparent walkway over the void</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1552203274-e3c7bd771d26?w=400&h=280&fit=crop" alt="Cyberpunk Chongqing" loading="lazy">
+            <div class="highlight-body"><h4>Cyberpunk Chongqing</h4>
+            <p>The multi-level city that looks straight out of Blade Runner</p></div>
+        </div>
+        <div class="highlight-card">
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1746243044880-4b71e10be164?w=400&h=280&fit=crop" alt="Beijing Stopover" loading="lazy">
+            <div class="highlight-body"><h4>Beijing Stopover</h4>
+            <p>One night to see the Forbidden City — zero regrets</p></div>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-red"><span>Sat</span>2</div>
+                <div class="day-info">
+                    <h3>Paris → Beijing (stopover)</h3>
+                    <div class="day-subtitle">Flight and first night in the capital</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">~14:00</div>
+                        <div class="activity-detail">
+                            <h4>Air France flight CDG → PEK</h4>
+                            <p>Direct flight. Arriving May 3 morning in Beijing.</p>
+                            <span class="activity-tag tag-flight">Flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-dark"><span>Sun</span>3</div>
+                <div class="day-info">
+                    <h3>Beijing Express</h3>
+                    <div class="day-subtitle">The essentials in one day — Forbidden City & Tiananmen</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Arrival and luggage drop</h4>
+                            <p>Drop your bags at the hotel or luggage storage. You're in Beijing — make the most of it!</p>
+                            <span class="activity-tag tag-flight">Arrival</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Tiananmen Square & Forbidden City</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1597052144352-7fde2bf47608?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"><img src="https://images.unsplash.com/photo-1621970685078-fdc977ad71ca?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"><img src="https://images.unsplash.com/photo-1708224001654-3e01d33ce79b?w=600&h=400&fit=crop" alt="Tiananmen Square" loading="lazy"></div>
+                            <p>Quick but intense visit: the main courtyards, imperial throne, gardens. 2-3 hours is enough for the highlights.</p>
+                            <span class="activity-tag tag-culture">Must-see</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:30</div>
+                        <div class="activity-detail">
+                            <h4>Peking duck</h4>
+                            <p>You can't pass through Beijing without it! Quick but unforgettable lunch.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Hutong by rickshaw</h4>
+                            <p>Quick rickshaw ride through the traditional alleyways. Fast, fun, and gives you a taste of old Beijing.</p>
+                            <span class="activity-tag tag-culture">Experience</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">18:00</div>
+                        <div class="activity-detail">
+                            <h4>Flight to Chongqing</h4>
+                            <p>Evening flight to Chongqing. Late arrival, check-in and rest.</p>
+                            <span class="activity-tag tag-flight">Domestic flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-gold"><span>Mon</span>4</div>
+                <div class="day-info">
+                    <h3>Chongqing: Day One</h3>
+                    <div class="day-subtitle">The cyberpunk city reveals itself</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Ciqikou Ancient Town</h4>
+                            <p>Morning in the ancient riverside village: alleys, tea, fiery street food and local crafts.</p>
+                            <span class="activity-tag tag-culture">Historic quarter</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:00</div>
+                        <div class="activity-detail">
+                            <h4>Chongqing Xiaomian</h4>
+                            <p>Lunch with Chongqing's most famous noodles. Spicy, cheap, incredible.</p>
+                            <span class="activity-tag tag-food">Street food</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Liziba Station & city levels</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1614308887764-24ce56e01700?w=600&h=400&fit=crop" alt="Liziba Station" loading="lazy"><img src="https://images.unsplash.com/photo-1615592315136-598868a2bddf?w=600&h=400&fit=crop" alt="Liziba Station" loading="lazy"><img src="https://images.unsplash.com/photo-1619103828744-fa46dd6e934a?w=600&h=400&fit=crop" alt="Liziba Station" loading="lazy"></div>
+                            <p>The metro through a building, outdoor escalators, skywalks between towers. Explore the absurd verticality of this city.</p>
+                            <span class="activity-tag tag-city">Exploration</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">18:00</div>
+                        <div class="activity-detail">
+                            <h4>Hongya Cave at sunset</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1552203274-e3c7bd771d26?w=600&h=400&fit=crop" alt="Hongya Cave" loading="lazy"><img src="https://images.unsplash.com/photo-1573295918221-c650d1990fc3?w=600&h=400&fit=crop" alt="Hongya Cave" loading="lazy"><img src="https://images.unsplash.com/photo-1579683155669-d8ef5d2cb012?w=600&h=400&fit=crop" alt="Hongya Cave" loading="lazy"></div>
+                            <p>Arrive before the lights come on and watch the transformation. A magical place.</p>
+                            <span class="activity-tag tag-city">Must-see</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">20:00</div>
+                        <div class="activity-detail">
+                            <h4>HOTPOT 🔥🔥🔥</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1611345157614-26d3bdd10c93?w=600&h=400&fit=crop" alt="Hotpot" loading="lazy"><img src="https://images.unsplash.com/photo-1611345158052-94149ce57507?w=600&h=400&fit=crop" alt="Hotpot" loading="lazy"><img src="https://images.unsplash.com/photo-1740575491875-77f58ab61040?w=600&h=400&fit=crop" alt="Hotpot" loading="lazy"></div>
+                            <p>The moment has arrived. Original Chongqing hotpot. Prepare to sweat, cry, and fall in love.</p>
+                            <span class="activity-tag tag-food">Legendary food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-green"><span>Tue</span>5</div>
+                <div class="day-info">
+                    <h3>Chongqing: Day Two</h3>
+                    <div class="day-subtitle">Skylines, rivers and barbecue</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Yangtze Cableway</h4>
+                            <p>Cable car over the Yangtze River. Incredible view of where the two rivers converge.</p>
+                            <span class="activity-tag tag-city">Icon</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">11:00</div>
+                        <div class="activity-detail">
+                            <h4>WFC Observation Deck</h4>
+                            <p>360° view from the 73rd floor. From above, Chongqing looks like another planet.</p>
+                            <span class="activity-tag tag-city">Views</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Eling Park & Pipashan</h4>
+                            <p>Scenic parks with city views. Relaxed afternoon with tea.</p>
+                            <span class="activity-tag tag-nature">Relax</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">20:00</div>
+                        <div class="activity-detail">
+                            <h4>Shaokao (street barbecue)</h4>
+                            <p>Skewers over charcoal, local beer, and the incredible atmosphere of Chongqing nights.</p>
+                            <span class="activity-tag tag-food">Street food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-blue"><span>Wed</span>6</div>
+                <div class="day-info">
+                    <h3>Chongqing → Zhangjiajie</h3>
+                    <div class="day-subtitle">Entering the world of Avatar</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">09:00</div>
+                        <div class="activity-detail">
+                            <h4>Flight Chongqing → Zhangjiajie</h4>
+                            <p>Short flight, ~1h15. Arrival at Zhangjiajie Hehua Airport.</p>
+                            <span class="activity-tag tag-flight">Domestic flight</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:00</div>
+                        <div class="activity-detail">
+                            <h4>Check-in and local lunch</h4>
+                            <p>Hotel near the park (Wulingyuan area). Tujia cuisine, from the indigenous people: smoked, spicy, wild.</p>
+                            <span class="activity-tag tag-food">Local cuisine</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">14:00</div>
+                        <div class="activity-detail">
+                            <h4>Zhangjiajie Grand Canyon + Glass Bridge</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1738579945323-8c78c9a1a27f?w=600&h=400&fit=crop" alt="Glass Bridge" loading="lazy"><img src="https://images.unsplash.com/photo-1534849105780-0d64663b0d78?w=600&h=400&fit=crop" alt="Glass Bridge" loading="lazy"><img src="https://images.unsplash.com/photo-1599729265418-22bc99d22011?w=600&h=400&fit=crop" alt="Glass Bridge" loading="lazy"></div>
+                            <p>The world's longest and highest glass bridge: 430 metres suspended in the void at 300m altitude. Pure adrenaline.</p>
+                            <span class="activity-tag tag-nature">Adventure</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Dinner and rest</h4>
+                            <p>Quiet evening in Wulingyuan. Big day in the park tomorrow!</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-purple"><span>Thu</span>7</div>
+                <div class="day-info">
+                    <h3>Zhangjiajie National Forest Park</h3>
+                    <div class="day-subtitle">The Avatar Mountains — full day</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">07:00</div>
+                        <div class="activity-detail">
+                            <h4>Park entrance — Yuanjiajie</h4>
+                            <p>Take the Bailong Elevator (the world's tallest outdoor elevator, 326m!) up to the Yuanjiajie plateau.</p>
+                            <span class="activity-tag tag-nature">Adventure</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">08:30</div>
+                        <div class="activity-detail">
+                            <h4>Avatar Hallelujah Mountain</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1561031454-4f1331bd2a34?w=600&h=400&fit=crop" alt="Zhangjiajie" loading="lazy"><img src="https://images.unsplash.com/photo-1521075264020-fe37135bf304?w=600&h=400&fit=crop" alt="Zhangjiajie" loading="lazy"><img src="https://images.unsplash.com/photo-1632377082277-9ee68a3ef67c?w=600&h=400&fit=crop" alt="Zhangjiajie" loading="lazy"></div>
+                            <p>The sandstone pillar that inspired Pandora's floating mountains. Wrapped in morning mist, it's surreal. THE moment of the trip.</p>
+                            <span class="activity-tag tag-nature">Magical moment</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">10:00</div>
+                        <div class="activity-detail">
+                            <h4>First Natural Bridge & trails</h4>
+                            <p>Natural rock bridge between two pillars. Scenic trails with breathtaking views of the pillar forest.</p>
+                            <span class="activity-tag tag-nature">Hiking</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">12:00</div>
+                        <div class="activity-detail">
+                            <h4>Golden Whip Stream</h4>
+                            <p>Walk along the golden stream: easy forest trail, brooks, wild monkeys. Absolute peace.</p>
+                            <span class="activity-tag tag-nature">Hiking</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">16:00</div>
+                        <div class="activity-detail">
+                            <h4>Tianzi Mountain viewpoint</h4>
+                            <p>View of hundreds of sandstone pillars emerging from the mist. Looks like a Chinese painting come to life.</p>
+                            <span class="activity-tag tag-nature">Epic views</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">19:00</div>
+                        <div class="activity-detail">
+                            <h4>Celebration dinner</h4>
+                            <p>You've seen Avatar in real life. Celebrate with a Tujia dinner and local beer.</p>
+                            <span class="activity-tag tag-food">Food</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-teal"><span>Fri</span>8</div>
+                <div class="day-info">
+                    <h3>Tianmen Mountain</h3>
+                    <div class="day-subtitle">Heaven's Gate and the world's longest cable car</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Cable car to Tianmen Mountain</h4>
+                            <p>The world's longest cable car (7,455m): 30 minutes suspended over the mountains. Arriving at the 1,500m summit.</p>
+                            <span class="activity-tag tag-nature">Adventure</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">09:30</div>
+                        <div class="activity-detail">
+                            <h4>Glass skywalk on the cliff</h4>
+                            <p>Coiling Dragon Cliff: glass walkway clinging to the mountainside at 1,400m. Not for the faint of heart!</p>
+                            <span class="activity-tag tag-nature">Adrenaline</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">11:00</div>
+                        <div class="activity-detail">
+                            <h4>Tianmen Cave (Heaven's Gate)</h4>
+                            <div class="activity-gallery"><img src="https://images.unsplash.com/photo-1743582529994-af946155a8c5?w=600&h=400&fit=crop" alt="Tianmen Mountain" loading="lazy"><img src="https://images.unsplash.com/photo-1546783177-2c290e5f4a0a?w=600&h=400&fit=crop" alt="Tianmen Mountain" loading="lazy"><img src="https://images.unsplash.com/photo-1571503532200-c0480a6ce009?w=600&h=400&fit=crop" alt="Tianmen Mountain" loading="lazy"></div>
+                            <p>A massive natural arch in the mountain, reached by climbing 999 steps. The "gate to heaven" in Chinese tradition.</p>
+                            <span class="activity-tag tag-nature">Epic moment</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">15:00</div>
+                        <div class="activity-detail">
+                            <h4>Return and relax</h4>
+                            <p>Descend and enjoy a free afternoon. Pack your bags for the return journey tomorrow.</p>
+                            <span class="activity-tag tag-city">Relax</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-number bg-rose"><span>Sat</span>9</div>
+                <div class="day-info">
+                    <h3>Zhangjiajie → Beijing → Paris</h3>
+                    <div class="day-subtitle">The journey home</div>
+                </div>
+                <div class="day-toggle">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-body">
+                    <div class="activity">
+                        <div class="activity-time">08:00</div>
+                        <div class="activity-detail">
+                            <h4>Flight Zhangjiajie → Beijing</h4>
+                            <p>~2h30 flight to Beijing for the international connection.</p>
+                            <span class="activity-tag tag-flight">Domestic flight</span>
+                        </div>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-time">~13:00</div>
+                        <div class="activity-detail">
+                            <h4>Air France connection PEK → CDG</h4>
+                            <p>Direct Air France flight from Beijing to Paris. Arrival in the evening, by midnight. 再见中国!</p>
+                            <span class="activity-tag tag-flight">Return flight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    Made with love by Eduard Capanu Company for Eloise: China 2026 🏮
+</footer>
+
+<script>
+    function showOption(n) {
+        document.querySelectorAll('.option-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('option-' + n).classList.add('active');
+        document.querySelectorAll('.nav-tab')[n - 1].classList.add('active');
+        window.scrollTo({ top: document.querySelector('.nav-container').offsetTop, behavior: 'smooth' });
+    }
+
+    function toggleDay(header) {
+        header.parentElement.classList.toggle('open');
+    }
+
+</script>
+
+</body>
+</html>
